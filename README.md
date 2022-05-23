@@ -10,9 +10,9 @@ Compatibility matrix:
 |--------------------|------------------------|------------------|--------------------------------------------------------------------------------------------------------------------------|
 | \>= 1.6 <=1.7      | ^1.0 (master)          | ^7.3             | |
 | 1.8                | no support             |                  | |
-| \>= 1.9            | ^2.0 (next)            | ^8.0             | |
+| \>= 1.9            | ^2.0                   | ^8.0             | |
 
-Note that our PHP client is backward compatible.
+Note that our PHP client is backward compatible with versions 1.6 and 1.7.
 
 ## Usage for API v2 (Sylius >= 1.9)
 
