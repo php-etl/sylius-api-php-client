@@ -1,6 +1,6 @@
 {
-  "name": "diglin/sylius-api-php-client",
-  "description": "Sylius client for the API",
+  "name": "php-etl/sylius-api-php-client",
+  "description": "API client for Sylius API versions 1.6, 1.7, 1.9 and above.",
   "license": "OSL-3.0",
   "minimum-stability": "stable",
   "authors": [
