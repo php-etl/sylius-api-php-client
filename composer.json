@@ -49,10 +49,18 @@
     "donatj/mock-webserver": "^2.0",
     "php-http/guzzle6-adapter": "^2.0"
   },
+  "replace": {
+    "diglin/sylius-api-php-client": ">=1.2.6"
+  },
   "config": {
     "bin-dir": "bin"
   },
   "suggest": {
     "php-http/guzzle6-adapter": "In order to use Guzzle v6 as the HTTP client"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "2.0.x-dev"
+    }
   }
 }
