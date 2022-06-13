@@ -13,8 +13,8 @@ namespace Diglin\Sylius\ApiClient;
 
 use Diglin\Sylius\ApiClient\Api\ApiAwareInterface;
 use Diglin\Sylius\ApiClient\Api\Legacy as Api;
-use Diglin\Sylius\ApiClient\Client\AuthenticatedHttpClient;
 use Diglin\Sylius\ApiClient\Client\HttpClient;
+use Diglin\Sylius\ApiClient\Client\LegacyAuthenticatedHttpClient;
 use Diglin\Sylius\ApiClient\Client\ResourceClient;
 use Diglin\Sylius\ApiClient\FileSystem\FileSystemInterface;
 use Diglin\Sylius\ApiClient\FileSystem\LocalFileSystem;
@@ -42,11 +42,11 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 class SyliusLegacyClientFactory implements SyliusLegacyClientBuilderInterface
 {
-    private ?string $baseUri;
+    private ?string $baseUri = '';
     private Client $httpClient;
     private RequestFactoryInterface $requestFactory;
     private StreamFactoryInterface $streamFactory;
-    private FileSystemInterface $fileSystem;
+    private ?FileSystemInterface $fileSystem = null;
     /** @var list<ApiAwareInterface> */
     private array $apiRegistry = [];
     private array $defaultHeaders = [];
@@ -67,7 +67,7 @@ class SyliusLegacyClientFactory implements SyliusLegacyClientBuilderInterface
         $httpClient = new HttpClient($this->getHttpClient(), $this->getRequestFactory(), $this->getStreamFactory(), $this->defaultHeaders);
 
         $authenticationApi = new Api\AuthenticationApi($httpClient, $uriGenerator);
-        $authenticatedHttpClient = new AuthenticatedHttpClient($httpClient, $authenticationApi, $authentication);
+        $authenticatedHttpClient = new LegacyAuthenticatedHttpClient($httpClient, $authenticationApi, $authentication);
         $multipartStreamBuilderFactory = new MultipartStreamBuilderFactory($this->getStreamFactory());
         $upsertListResponseFactory = new UpsertResourceListResponseFactory();
         $patchListResponseFactory = new PatchResourceListResponseFactory();
