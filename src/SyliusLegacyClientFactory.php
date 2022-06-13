@@ -43,9 +43,9 @@ use Psr\Http\Message\StreamFactoryInterface;
 class SyliusLegacyClientFactory implements SyliusLegacyClientBuilderInterface
 {
     private ?string $baseUri = '';
-    private Client $httpClient;
-    private RequestFactoryInterface $requestFactory;
-    private StreamFactoryInterface $streamFactory;
+    private ?Client $httpClient = null;
+    private ?RequestFactoryInterface $requestFactory = null;
+    private ?StreamFactoryInterface $streamFactory = null;
     private ?FileSystemInterface $fileSystem = null;
     /** @var list<ApiAwareInterface> */
     private array $apiRegistry = [];
