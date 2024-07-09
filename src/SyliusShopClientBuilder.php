@@ -24,10 +24,10 @@ use Psr\Http\Message\StreamFactoryInterface;
 class SyliusShopClientBuilder implements SyliusShopClientBuilderInterface
 {
     private string $baseUri;
-    private ?Client $httpClient;
-    private ?RequestFactoryInterface $requestFactory;
-    private ?StreamFactoryInterface $streamFactory;
-    private ?FileSystemInterface $fileSystem;
+    private ?Client $httpClient = null;
+    private ?RequestFactoryInterface $requestFactory = null;
+    private ?StreamFactoryInterface $streamFactory = null;
+    private ?FileSystemInterface $fileSystem = null;
     /** @var array<string, Api\ApiAwareInterface> */
     private array $apiRegistry = [];
     /** @var array<string, string> */

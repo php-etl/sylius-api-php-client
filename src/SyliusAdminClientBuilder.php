@@ -13,6 +13,7 @@ use Diglin\Sylius\ApiClient\Pagination\ResourceCursorFactory;
 use Diglin\Sylius\ApiClient\Routing\UriGenerator;
 use Diglin\Sylius\ApiClient\Security\Authentication;
 use Diglin\Sylius\ApiClient\Stream\MultipartStreamBuilderFactory;
+use Diglin\Sylius\ApiClient\Stream\PatchResourceListResponseFactory;
 use Diglin\Sylius\ApiClient\Stream\UpsertResourceListResponseFactory;
 use Http\Client\HttpClient as Client;
 use Http\Discovery\HttpClientDiscovery;
@@ -23,10 +24,10 @@ use Psr\Http\Message\StreamFactoryInterface;
 class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
 {
     private string $baseUri;
-    private ?Client $httpClient;
-    private ?RequestFactoryInterface $requestFactory;
-    private ?StreamFactoryInterface $streamFactory;
-    private ?FileSystemInterface $fileSystem;
+    private ?Client $httpClient = null;
+    private ?RequestFactoryInterface $requestFactory = null;
+    private ?StreamFactoryInterface $streamFactory = null;
+    private ?FileSystemInterface $fileSystem = null;
     /** @var array<string, Api\ApiAwareInterface> */
     private array $apiRegistry = [];
     /** @var array<string, string> */
@@ -120,12 +121,14 @@ class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
         $authenticatedHttpClient = new AuthenticatedHttpClient($httpClient, $authenticationApi, $authentication);
         $multipartStreamBuilderFactory = new MultipartStreamBuilderFactory($this->getStreamFactory());
         $upsertListResponseFactory = new UpsertResourceListResponseFactory();
+        $patchListResponseFactory = new PatchResourceListResponseFactory();
 
         $resourceClient = new ResourceClient(
             $authenticatedHttpClient,
             $uriGenerator,
             $multipartStreamBuilderFactory,
-            $upsertListResponseFactory
+            $upsertListResponseFactory,
+            $patchListResponseFactory,
         );
 
         $pageFactory = new PageFactory($authenticatedHttpClient, $uriGenerator);
