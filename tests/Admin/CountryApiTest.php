@@ -18,7 +18,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
 
-class CountryDataApiTest extends \PHPUnit\Framework\TestCase
+class CountryApiTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetCountries()
     {
