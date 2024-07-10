@@ -2,8 +2,7 @@
 
 namespace Diglin\Sylius\ApiClient\Client;
 
-use Http\Client\HttpClient as Client;
-use Http\Message\RequestFactory;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -17,9 +16,9 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 class HttpClient implements HttpClientInterface
 {
-    /** @var Client */
+    /** @var ClientInterface */
     protected $httpClient;
-    /** @var RequestFactory */
+    /** @var RequestFactoryInterface */
     protected $requestFactory;
     /** @var HttpExceptionHandler */
     protected $httpExceptionHandler;
@@ -29,7 +28,7 @@ class HttpClient implements HttpClientInterface
     private $defaultHeaders;
 
     public function __construct(
-        Client $httpClient,
+        ClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
         StreamFactoryInterface $streamFactory,
         $defaultHeaders = []

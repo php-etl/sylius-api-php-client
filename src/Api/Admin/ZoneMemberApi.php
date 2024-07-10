@@ -15,37 +15,11 @@ final class ZoneMemberApi implements ZoneMemberApiInterface
 {
     public function __construct(
         private ResourceClientInterface $resourceClient,
-        private PageFactoryInterface $pageFactory,
-        private ResourceCursorFactoryInterface $cursorFactory,
     ) {}
 
     public function get($code): array
     {
         Assert::string($code);
         return $this->resourceClient->getResource('api/v2/admin/zone-members/%s', [$code]);
-    }
-
-    public function listPerPage(
-        $parentCode,
-        int $limit = 10,
-        array $queryParameters = [],
-        FilterBuilderInterface $filterBuilder = null,
-        SortBuilderInterface $sortBuilder = null
-    ): PageInterface {
-        $data = $this->resourceClient->getResources('api/v2/admin/zones/%s/members', [$parentCode], $limit, $queryParameters, $filterBuilder, $sortBuilder);
-
-        return $this->pageFactory->createPage($data);
-    }
-
-    public function all(
-        $parentCode,
-        int $pageSize = 10,
-        array $queryParameters = [],
-        FilterBuilderInterface $filterBuilder = null,
-        SortBuilderInterface $sortBuilder = null
-    ): ResourceCursorInterface {
-        $data = $this->listPerPage($parentCode, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
-
-        return $this->cursorFactory->createCursor($pageSize, $data);
     }
 }

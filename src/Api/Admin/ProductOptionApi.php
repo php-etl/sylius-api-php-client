@@ -25,9 +25,8 @@ final class ProductOptionApi implements ProductOptionApiInterface
         return $this->resourceClient->getResource('api/v2/admin/product-options/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/product-options', [], $data);
     }
 
@@ -84,4 +83,9 @@ final class ProductOptionApi implements ProductOptionApiInterface
 
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
+
+    public function delete($code): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-options/%d', [$code]);    }
 }

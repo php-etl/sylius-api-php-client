@@ -16,4 +16,10 @@ final class AddressApi implements AddressApiInterface
         Assert::integer($code);
         return $this->resourceClient->getResource('api/v2/admin/addresses/%d', [$code]);
     }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/addresses/%d', [$code], $data);
+    }
 }

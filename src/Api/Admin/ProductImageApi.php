@@ -46,4 +46,15 @@ final class ProductImageApi implements ProductImageApiInterface
 
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
+
+    public function delete($code): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-images/%d', [$code]);    }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/product-images/%d', [$code], $data);
+    }
 }

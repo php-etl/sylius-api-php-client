@@ -58,4 +58,10 @@ final class CountryApi implements CountryApiInterface
         Assert::string($code);
         return $this->resourceClient->deleteResource('api/v2/admin/countries/%s', [$code]);
     }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/countries/%s', [$code], $data);
+    }
 }

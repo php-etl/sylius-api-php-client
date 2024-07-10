@@ -53,9 +53,14 @@ final class TaxonApi implements TaxonApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
+    {
+        return $this->resourceClient->createResource('api/v2/admin/taxons', [], $data);
+    }
+
+    public function delete($code): int
     {
         Assert::string($code);
-        return $this->resourceClient->createResource('api/v2/admin/taxons', [], $data);
+        return $this->resourceClient->deleteResource('api/v2/admin/taxons/%s', [$code]);
     }
 }

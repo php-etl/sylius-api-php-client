@@ -15,35 +15,11 @@ final class ProductOptionValueApi implements ProductOptionValueApiInterface
 {
     public function __construct(
         private ResourceClientInterface $resourceClient,
-        private PageFactoryInterface $pageFactory,
-        private ResourceCursorFactoryInterface $cursorFactory,
     ) {}
 
     public function get($code): array
     {
         Assert::string($code);
         return $this->resourceClient->getResource('api/v2/admin/product-options/%s', [$code]);
-    }
-
-    public function listPerPage(
-        int $limit = 10,
-        array $queryParameters = [],
-        FilterBuilderInterface $filterBuilder = null,
-        SortBuilderInterface $sortBuilder = null
-    ): PageInterface {
-        $data = $this->resourceClient->getResources('api/v2/admin/product-options', [], $limit, $queryParameters, $filterBuilder, $sortBuilder);
-
-        return $this->pageFactory->createPage($data);
-    }
-
-    public function all(
-        int $pageSize = 10,
-        array $queryParameters = [],
-        FilterBuilderInterface $filterBuilder = null,
-        SortBuilderInterface $sortBuilder = null
-    ): ResourceCursorInterface {
-        $data = $this->listPerPage($pageSize, $queryParameters, $filterBuilder, $sortBuilder);
-
-        return $this->cursorFactory->createCursor($pageSize, $data);
     }
 }

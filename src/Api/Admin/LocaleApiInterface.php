@@ -3,9 +3,10 @@
 namespace Diglin\Sylius\ApiClient\Api\Admin;
 
 use Diglin\Sylius\ApiClient\Api\Operation\CreatableResourceInterface;
+use Diglin\Sylius\ApiClient\Api\Operation\DeletableResourceInterface;
 use Diglin\Sylius\ApiClient\Api\Operation\GettableResourceInterface;
 use Diglin\Sylius\ApiClient\Api\Operation\ListableResourceInterface;
 
-interface LocaleApiInterface extends GettableResourceInterface, ListableResourceInterface,CreatableResourceInterface
+interface LocaleApiInterface extends GettableResourceInterface, ListableResourceInterface, CreatableResourceInterface, DeletableResourceInterface
 {
 }

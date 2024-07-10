@@ -25,9 +25,8 @@ final class PromotionApi implements PromotionApiInterface
         return $this->resourceClient->getResource('api/v2/admin/promotions/%d', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::integer($code);
         return $this->resourceClient->createResource('api/v2/admin/promotions', [], $data);
     }
 
@@ -57,5 +56,11 @@ final class PromotionApi implements PromotionApiInterface
     {
         Assert::integer($code);
         return $this->resourceClient->deleteResource('api/v2/admin/promotions/%d', [$code]);
+    }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/promotions/%d', [$code], $data);
     }
 }

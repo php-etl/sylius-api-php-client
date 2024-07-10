@@ -25,9 +25,9 @@ use Diglin\Sylius\ApiClient\Security\LegacyAuthentication;
 use Diglin\Sylius\ApiClient\Stream\MultipartStreamBuilderFactory;
 use Diglin\Sylius\ApiClient\Stream\PatchResourceListResponseFactory;
 use Diglin\Sylius\ApiClient\Stream\UpsertResourceListResponseFactory;
-use Http\Client\HttpClient as Client;
-use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -43,7 +43,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 class SyliusLegacyClientFactory implements SyliusLegacyClientBuilderInterface
 {
     private ?string $baseUri = '';
-    private ?Client $httpClient = null;
+    private ?ClientInterface $httpClient = null;
     private ?RequestFactoryInterface $requestFactory = null;
     private ?StreamFactoryInterface $streamFactory = null;
     private ?FileSystemInterface $fileSystem = null;
@@ -109,7 +109,7 @@ class SyliusLegacyClientFactory implements SyliusLegacyClientBuilderInterface
     /**
      * Allows to directly set a client instead of using HttpClientDiscovery::find().
      */
-    public function setHttpClient(Client $httpClient): self
+    public function setHttpClient(ClientInterface $httpClient): self
     {
         $this->httpClient = $httpClient;
 
@@ -223,10 +223,10 @@ class SyliusLegacyClientFactory implements SyliusLegacyClientBuilderInterface
         return $client;
     }
 
-    private function getHttpClient(): Client
+    private function getHttpClient(): ClientInterface
     {
         if (null === $this->httpClient) {
-            $this->httpClient = HttpClientDiscovery::find();
+            $this->httpClient = Psr18ClientDiscovery::find();
         }
 
         return $this->httpClient;
