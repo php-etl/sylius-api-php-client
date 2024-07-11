@@ -21,8 +21,8 @@ final class CatalogPromotionApi implements CatalogPromotionApiInterface
 
     public function get($code): array
     {
-        Assert::integer($code);
-        return $this->resourceClient->getResource('api/v2/admin/catalog-promotions/%d', [$code]);
+        Assert::string($code);
+        return $this->resourceClient->getResource('api/v2/admin/catalog-promotions/%s', [$code]);
     }
 
     public function create(array $data = []): int
@@ -54,13 +54,13 @@ final class CatalogPromotionApi implements CatalogPromotionApiInterface
 
     public function upsert($code, array $data = []): int
     {
-        Assert::integer($code);
-        return $this->resourceClient->upsertResource('api/v2/admin/catalog-promotions/%d', [$code], $data);
+        Assert::string($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/catalog-promotions/%s', [$code], $data);
     }
 
     public function delete($code): int
     {
-        Assert::integer($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/catalog-promotions/%d', [$code]);
+        Assert::string($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/catalog-promotions/%s', [$code]);
     }
 }

@@ -11,9 +11,8 @@ final class ResetPasswordRequestApi implements ResetPasswordRequestApiInterface
         private ResourceClientInterface $resourceClient,
     ) {}
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/reset-password-requests', [], $data);
     }
 

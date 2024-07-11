@@ -12,6 +12,7 @@
 namespace Diglin\Sylius\ApiClient\Api\Authentication;
 
 use Diglin\Sylius\ApiClient\Client\HttpClient;
+use Diglin\Sylius\ApiClient\Client\HttpClientInterface;
 use Diglin\Sylius\ApiClient\Routing\UriGeneratorInterface;
 
 /**

@@ -19,7 +19,9 @@ final class AvatarImageApi implements AvatarImageApiInterface
 
     public function create(array $data = []): int
     {
-        return $this->resourceClient->createResource('api/v2/admin/avatar-images', [], $data);
+        $response = $this->resourceClient->createMultipartResource('api/v2/admin/avatar-images', [], $data);
+
+        return $response->getStatusCode();
     }
 
     public function delete($code): int

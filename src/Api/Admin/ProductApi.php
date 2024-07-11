@@ -53,9 +53,8 @@ final class ProductApi implements ProductApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/products', [], $data);
     }
 

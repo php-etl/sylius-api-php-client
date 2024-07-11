@@ -55,9 +55,8 @@ final class TaxCategoryApi implements TaxCategoryApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/tax-categories', [], $data);
     }
 

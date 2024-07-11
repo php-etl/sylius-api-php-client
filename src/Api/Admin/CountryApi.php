@@ -25,9 +25,8 @@ final class CountryApi implements CountryApiInterface
         return $this->resourceClient->getResource('api/v2/admin/countries/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/countries', [], $data);
     }
 
@@ -63,5 +62,30 @@ final class CountryApi implements CountryApiInterface
     {
         Assert::string($code);
         return $this->resourceClient->upsertResource('api/v2/admin/countries/%s', [$code], $data);
+    }
+
+    public function listProvincesPerPage(
+        string $code,
+        int $limit = 10,
+        array $queryParameters = [],
+        FilterBuilderInterface $filterBuilder = null,
+        SortBuilderInterface $sortBuilder = null
+    ): PageInterface {
+        $data = $this->resourceClient->getResources(sprintf('api/v2/admin/countries/%s/provinces', $code), [], $limit, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->pageFactory->createPage($data);
+    }
+
+    public function provinces(
+        string $code,
+        int $pageSize = 10,
+        array $queryParameters = [],
+        FilterBuilderInterface $filterBuilder = null,
+        SortBuilderInterface $sortBuilder = null
+    ): ResourceCursorInterface
+    {
+        $data = $this->listProvincesPerPage($code, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);
     }
 }

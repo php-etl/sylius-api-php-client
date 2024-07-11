@@ -10,4 +10,5 @@ use Diglin\Sylius\ApiClient\Api\Operation\UpsertableResourceInterface;
 
 interface ChannelApiInterface extends GettableResourceInterface, CreatableResourceInterface, UpsertableResourceInterface, ListableResourceInterface, DeletableResourceInterface
 {
+    public function shopBillingData(string $code): int;
 }

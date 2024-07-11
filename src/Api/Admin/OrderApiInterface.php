@@ -22,6 +22,15 @@ interface OrderApiInterface extends GettableResourceInterface, ListableResourceI
     public function cancel(string $code, array $data = []): int;
 
     /**
+     * Resends an order confirmation email.
+     *
+     * @param string $code Code of the order
+     *
+     * @throws HttpException if the request failed
+     */
+    public function resetConfirmationEmail(string $code, array $data = []): int;
+
+    /**
      * Lists an order payments.
      *
      * @param string $code Code of the order

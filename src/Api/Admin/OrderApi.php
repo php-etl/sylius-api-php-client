@@ -100,4 +100,9 @@ final class OrderApi implements OrderApiInterface
 
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
+
+    public function resetConfirmationEmail(string $code, array $data = []): int
+    {
+        return $this->resourceClient->createResource('api/v2/admin/orders/%s/resend-confirmation-email', [$code], $data);
+    }
 }

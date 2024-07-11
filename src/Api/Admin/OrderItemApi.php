@@ -27,7 +27,7 @@ final class OrderItemApi implements OrderItemApiInterface
 
     public function listPerPage(int $limit = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
     {
-        $data = $this->resourceClient->getResources('api/v2/admin/order-items');
+        $data = $this->resourceClient->getResources('api/v2/admin/order-items', [], $limit, $queryParameters, $filterBuilder, $sortBuilder);
 
         return $this->pageFactory->createPage($data);
     }
@@ -35,6 +35,26 @@ final class OrderItemApi implements OrderItemApiInterface
     public function all(int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): ResourceCursorInterface
     {
         $data = $this->listPerPage($pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);
+    }
+
+    public function listAdjustmentsPerPage($code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
+    {
+        $data = $this->resourceClient->getResources('api/v2/admin/order-items/%d/adjustments', [$code], $limit, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->pageFactory->createPage($data);
+    }
+
+    public function allAdjustments(
+        $code,
+        int $pageSize = 10,
+        array $queryParameters = [],
+        FilterBuilderInterface $filterBuilder = null,
+        SortBuilderInterface $sortBuilder = null
+    ): ResourceCursorInterface
+    {
+        $data = $this->listAdjustmentsPerPage($code, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
 
         return $this->cursorFactory->createCursor($pageSize, $data);
     }

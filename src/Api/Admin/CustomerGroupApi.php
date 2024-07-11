@@ -25,9 +25,8 @@ final class CustomerGroupApi implements CustomerGroupApiInterface
         return $this->resourceClient->getResource('api/v2/admin/customer-groups/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/customer-groups', [], $data);
     }
 
