@@ -3,8 +3,6 @@
 namespace Diglin\Sylius\ApiClient\Api\Admin;
 
 use Diglin\Sylius\ApiClient\Client\ResourceClientInterface;
-use Diglin\Sylius\ApiClient\Exception\HttpException;
-use Diglin\Sylius\ApiClient\Exception\InvalidArgumentException;
 use Diglin\Sylius\ApiClient\Filter\FilterBuilderInterface;
 use Diglin\Sylius\ApiClient\Pagination\PageFactoryInterface;
 use Diglin\Sylius\ApiClient\Pagination\PageInterface;
@@ -13,7 +11,7 @@ use Diglin\Sylius\ApiClient\Pagination\ResourceCursorInterface;
 use Diglin\Sylius\ApiClient\Sort\SortBuilderInterface;
 use Webmozart\Assert\Assert;
 
-final class ShippingMethodApi implements ShippingMethodApiInterface
+final class ProductAssociationApi implements ProductAssociationApiInterface
 {
     public function __construct(
         private ResourceClientInterface $resourceClient,
@@ -23,14 +21,13 @@ final class ShippingMethodApi implements ShippingMethodApiInterface
 
     public function get($code): array
     {
-        Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/shipping-methods/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->getResource('api/v2/admin/product-associations/%d', [$code]);
     }
 
-    public function upsert($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
-        return $this->resourceClient->upsertResource('api/v2/admin/shipping-methods/%s', [$code]);
+        return $this->resourceClient->createResource('api/v2/admin/product-associations', [], $data);
     }
 
     public function listPerPage(
@@ -39,7 +36,7 @@ final class ShippingMethodApi implements ShippingMethodApiInterface
         FilterBuilderInterface $filterBuilder = null,
         SortBuilderInterface $sortBuilder = null
     ): PageInterface {
-        $data = $this->resourceClient->getResources('api/v2/admin/shipping-methods', [], $limit, $queryParameters, $filterBuilder, $sortBuilder);
+        $data = $this->resourceClient->getResources('api/v2/admin/product-associations', [], $limit, $queryParameters, $filterBuilder, $sortBuilder);
 
         return $this->pageFactory->createPage($data);
     }
@@ -55,26 +52,15 @@ final class ShippingMethodApi implements ShippingMethodApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function create(array $data = []): int
+    public function upsert($code, array $data = []): int
     {
-        return $this->resourceClient->createResource('api/v2/admin/shipping-methods', [], $data);
+        Assert::integer($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/product-associations/%d', [$code], $data);
     }
 
     public function delete($code): int
     {
-        Assert::string($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/shipping-methods/%s', [$code]);
-    }
-
-    public function archive(string $code, array $data = [])
-    {
-        Assert::string($code);
-        return $this->resourceClient->patchResource('api/v2/admin/shipping-methods/%s/archive', [$code], $data);
-    }
-
-    public function restore(string $code, array $data = [])
-    {
-        Assert::string($code);
-        return $this->resourceClient->patchResource('api/v2/admin/shipping-methods/%s/restore', [$code], $data);
+        Assert::integer($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-association-types/%d', [$code]);
     }
 }

@@ -9,6 +9,6 @@ use Diglin\Sylius\ApiClient\Api\Operation\UpsertableResourceInterface;
 
 interface ProductReviewApiInterface extends GettableResourceInterface, ListableResourceInterface, UpsertableResourceInterface, DeletableResourceInterface
 {
-    public function accept(string $code, array $data = []): int;
-    public function reject(string $code, array $data = []): int;
+    public function accept(int $code, array $data = []): int;
+    public function reject(int $code, array $data = []): int;
 }

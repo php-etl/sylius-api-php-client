@@ -8,6 +8,6 @@ use Diglin\Sylius\ApiClient\Api\Operation\GettableResourceInterface;
 use Diglin\Sylius\ApiClient\Api\Operation\ListableResourceInterface;
 use Diglin\Sylius\ApiClient\Api\Operation\UpsertableResourceInterface;
 
-interface ProductAttributeApiInterface extends GettableResourceInterface, ListableResourceInterface, CreatableResourceInterface, UpsertableResourceInterface, DeletableResourceInterface
+interface ProductAssociationApiInterface extends GettableResourceInterface, ListableResourceInterface, CreatableResourceInterface, UpsertableResourceInterface, DeletableResourceInterface
 {
 }

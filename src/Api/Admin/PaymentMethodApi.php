@@ -21,7 +21,7 @@ final class PaymentMethodApi implements PaymentMethodApiInterface
 
     public function get($code): array
     {
-        Assert::string($code);
+        Assert::SyliusShopClientDecorator($code);
         return $this->resourceClient->getResource('api/v2/admin/payment-methods/%s', [$code]);
     }
 
@@ -32,7 +32,7 @@ final class PaymentMethodApi implements PaymentMethodApiInterface
 
     public function delete($code): int
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->deleteResource('api/v2/admin/payment-methods/%d', [$code]);
     }
 
@@ -50,6 +50,6 @@ final class PaymentMethodApi implements PaymentMethodApiInterface
 
     public function upsert($code, array $data = []): int
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->upsertResource('api/v2/admin/payment-methods/%d', [$code], $data);    }
 }

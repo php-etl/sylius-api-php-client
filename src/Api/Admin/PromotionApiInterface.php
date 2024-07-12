@@ -10,4 +10,7 @@ use Diglin\Sylius\ApiClient\Api\Operation\UpsertableResourceInterface;
 
 interface PromotionApiInterface extends GettableResourceInterface, ListableResourceInterface, CreatableResourceInterface, UpsertableResourceInterface, DeletableResourceInterface
 {
+    public function archive(string $code): int;
+
+    public function restore(string $code): int;
 }

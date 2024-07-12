@@ -63,4 +63,17 @@ final class TaxonApi implements TaxonApiInterface
         Assert::string($code);
         return $this->resourceClient->deleteResource('api/v2/admin/taxons/%s', [$code]);
     }
+
+    public function allImages(string $code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): ResourceCursorInterface
+    {
+        $data = $this->listImagesPerPage($code, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);    }
+
+    public function listImagesPerPage(string $code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
+    {
+        $data = $this->resourceClient->getResources('api/v2/admin/taxons/%s/images', [$code], $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->pageFactory->createPage($data);
+    }
 }

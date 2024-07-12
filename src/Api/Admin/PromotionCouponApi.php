@@ -51,4 +51,9 @@ final class PromotionCouponApi implements PromotionCouponInterface
         $data = $this->listPerPage($pageSize, $queryParameters, $filterBuilder, $sortBuilder);
 
         return $this->cursorFactory->createCursor($pageSize, $data);    }
+
+    public function generate(): int
+    {
+        return $this->resourceClient->createResource('api/v2/admin/promotion-coupons/generate');
+    }
 }

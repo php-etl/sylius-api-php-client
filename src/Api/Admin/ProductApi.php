@@ -63,4 +63,18 @@ final class ProductApi implements ProductApiInterface
         Assert::string($code);
         return $this->resourceClient->deleteResource('api/v2/admin/products/%s', [$code]);
     }
+
+    public function allImages(string $code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): ResourceCursorInterface
+    {
+        $data = $this->listSImagesPerPage($code, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);
+    }
+
+    public function listSImagesPerPage(string $code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
+    {
+        $data = $this->resourceClient->getResources('api/v2/admin/products/%s/images', [$code], $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->pageFactory->createPage($data);
+    }
 }

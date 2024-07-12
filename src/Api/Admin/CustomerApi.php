@@ -27,7 +27,7 @@ final class CustomerApi implements CustomerApiInterface
 
     public function create(array $data = []): int
     {
-        return $this->resourceClient->createResource('api/v2/admin/customers/%d', $data);
+        return $this->resourceClient->createResource('api/v2/admin/customers', [], $data);
     }
 
     public function delete($code): int

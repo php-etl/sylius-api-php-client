@@ -10,4 +10,5 @@ use Diglin\Sylius\ApiClient\Api\Operation\UpsertableResourceInterface;
 
 interface PromotionCouponInterface extends GettableResourceInterface, ListableResourceInterface, CreatableResourceInterface, DeletableResourceInterface
 {
+    public function generate(): int;
 }

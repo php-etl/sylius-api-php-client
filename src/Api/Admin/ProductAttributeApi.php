@@ -21,7 +21,7 @@ class ProductAttributeApi implements ProductAttributeApiInterface
 
     public function get($code): array
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->getResource('api/v2/admin/product-attributes/%d', [$code]);    }
 
     public function create(array $data = []): int
@@ -31,7 +31,7 @@ class ProductAttributeApi implements ProductAttributeApiInterface
 
     public function delete($code): int
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->deleteResource('api/v2/admin/product-attributes/%d', [$code]);
     }
 
@@ -49,7 +49,7 @@ class ProductAttributeApi implements ProductAttributeApiInterface
 
     public function upsert($code, array $data = []): int
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->upsertResource('api/v2/admin/product-attributes/%d', [$code], $data);
     }
 }

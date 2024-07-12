@@ -54,7 +54,7 @@ final class ProductAssociationTypeApi implements ProductAssociationTypeApiInterf
 
     public function upsert($code, array $data = []): int
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->upsertResource('api/v2/admin/product-association-types/%d', [$code], $data);
     }
 
