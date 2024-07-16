@@ -49,7 +49,7 @@ final class ProductTaxonApi implements ProductTaxonApiInterface
 
     public function create(array $data = []): int
     {
-        return $this->resourceClient->createResource('api/v2/admin/product-taxons/%d', [], $data);    }
+        return $this->resourceClient->createResource('api/v2/admin/product-taxons', [], $data);    }
 
     public function delete($code): int
     {

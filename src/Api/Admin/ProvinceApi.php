@@ -13,13 +13,13 @@ final class ProvinceApi implements ProvinceApiInterface
 
     public function get($code): array
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->getResource('api/v2/admin/provinces/%s', [$code]);
     }
 
     public function upsert($code, array $data = []): int
     {
         Assert::string($code);
-        return $this->resourceClient->upsertResource('api/v2/admin/provinces/%d', [$code], $data);
+        return $this->resourceClient->upsertResource('api/v2/admin/provinces/%s', [$code], $data);
     }
 }

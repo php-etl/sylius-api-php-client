@@ -61,6 +61,6 @@ final class ProductAssociationApi implements ProductAssociationApiInterface
     public function delete($code): int
     {
         Assert::integer($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/product-association-types/%d', [$code]);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-associations/%d', [$code]);
     }
 }

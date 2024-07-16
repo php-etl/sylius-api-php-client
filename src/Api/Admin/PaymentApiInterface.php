@@ -15,5 +15,5 @@ interface PaymentApiInterface extends GettableResourceInterface, ListableResourc
      *
      * @throws HttpException if the request failed
      */
-    public function complete(string $code, array $data = []): int;
+    public function complete(int $code, array $data = []): int;
 }

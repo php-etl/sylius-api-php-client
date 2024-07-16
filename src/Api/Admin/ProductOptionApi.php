@@ -86,6 +86,6 @@ final class ProductOptionApi implements ProductOptionApiInterface
 
     public function delete($code): int
     {
-        Assert::integer($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/product-options/%d', [$code]);    }
+        Assert::string($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-options/%s', [$code]);    }
 }

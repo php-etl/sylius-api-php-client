@@ -21,24 +21,25 @@ final class PromotionCouponApi implements PromotionCouponInterface
 
     public function get($code): array
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->getResource('api/v2/admin/promotion-coupons/%s', [$code]);
     }
 
     public function upsert($code, array $data = []): int
     {
         Assert::string($code);
-        return $this->resourceClient->upsertResource('api/v2/admin/promotion-coupons/%d', [$code], $data);
+        return $this->resourceClient->upsertResource('api/v2/admin/promotion-coupons/%s', [$code], $data);
     }
 
     public function create(array $data = []): int
     {
-        return $this->resourceClient->createResource('api/v2/admin/promotion-coupons/%d', [], $data);    }
+        return $this->resourceClient->createResource('api/v2/admin/promotion-coupons', [], $data);    }
 
     public function delete($code): int
     {
         Assert::string($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/promotion-coupons/%d', [$code]);    }
+        return $this->resourceClient->deleteResource('api/v2/admin/promotion-coupons/%s', [$code]);
+    }
 
     public function listPerPage(int $limit = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
     {

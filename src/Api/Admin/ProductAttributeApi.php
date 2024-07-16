@@ -22,7 +22,7 @@ class ProductAttributeApi implements ProductAttributeApiInterface
     public function get($code): array
     {
         Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/product-attributes/%d', [$code]);    }
+        return $this->resourceClient->getResource('api/v2/admin/product-attributes/%s', [$code]);    }
 
     public function create(array $data = []): int
     {
@@ -32,7 +32,7 @@ class ProductAttributeApi implements ProductAttributeApiInterface
     public function delete($code): int
     {
         Assert::string($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/product-attributes/%d', [$code]);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-attributes/%s', [$code]);
     }
 
     public function listPerPage(int $limit = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
@@ -50,6 +50,6 @@ class ProductAttributeApi implements ProductAttributeApiInterface
     public function upsert($code, array $data = []): int
     {
         Assert::string($code);
-        return $this->resourceClient->upsertResource('api/v2/admin/product-attributes/%d', [$code], $data);
+        return $this->resourceClient->upsertResource('api/v2/admin/product-attributes/%s', [$code], $data);
     }
 }

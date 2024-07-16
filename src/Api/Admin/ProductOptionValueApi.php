@@ -20,6 +20,6 @@ final class ProductOptionValueApi implements ProductOptionValueApiInterface
     public function get($code): array
     {
         Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/product-options/%s', [$code]);
+        return $this->resourceClient->getResource('api/v2/admin/product-option-values/%s', [$code]);
     }
 }

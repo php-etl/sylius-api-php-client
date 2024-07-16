@@ -21,8 +21,8 @@ final class PaymentApi implements PaymentApiInterface
 
     public function get($code): array
     {
-        Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/payments/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->getResource('api/v2/admin/payments/%d', [$code]);
     }
 
     public function listPerPage(
@@ -47,9 +47,9 @@ final class PaymentApi implements PaymentApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function complete(string $code, array $data = []): int
+    public function complete(int $code, array $data = []): int
     {
-        Assert::string($code);
-        return $this->resourceClient->patchResource('api/v2/admin/payments/%s/complete', [$code], $data);
+        Assert::integer($code);
+        return $this->resourceClient->patchResource('api/v2/admin/payments/%d/complete', [$code], $data);
     }
 }

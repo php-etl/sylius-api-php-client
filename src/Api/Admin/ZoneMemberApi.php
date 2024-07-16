@@ -19,7 +19,7 @@ final class ZoneMemberApi implements ZoneMemberApiInterface
 
     public function get($code): array
     {
-        Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/zone-members/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->getResource('api/v2/admin/zone-members/%d', [$code]);
     }
 }
