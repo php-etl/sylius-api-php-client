@@ -45,7 +45,7 @@ final class OrderItemUnitApi implements OrderItemUnitApiInterface
         FilterBuilderInterface $filterBuilder = null,
         SortBuilderInterface $sortBuilder = null
     ): PageInterface {
-        $data = $this->resourceClient->getResources('api/v2/admin/order-item-units/%d/adjustments', [$code], $limit, $queryParameters, $filterBuilder, $sortBuilder);
+        $data = $this->resourceClient->getResources('api/v2/admin/order-item-units/%d/adjustments', [$code], $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
 
         return $this->pageFactory->createPage($data);
     }

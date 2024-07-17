@@ -23,14 +23,14 @@ final class TaxonImageApi implements TaxonImageApiInterface
 
     public function get($code): array
     {
-        Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/tax-rates/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->getResource('api/v2/admin/taxon-images/%d', [$code]);
     }
 
     public function upsert($code, array $data = []): int
     {
-        Assert::string($code);
-        return $this->resourceClient->upsertResource('api/v2/admin/tax-rates/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/taxon-images/%d', [$code]);
     }
 
     public function listPerPage(
@@ -57,7 +57,7 @@ final class TaxonImageApi implements TaxonImageApiInterface
 
     public function delete($code): int
     {
-        Assert::string($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/tax-rates/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/taxon-images/%d', [$code]);
     }
 }
