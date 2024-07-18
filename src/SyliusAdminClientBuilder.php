@@ -13,20 +13,21 @@ use Diglin\Sylius\ApiClient\Pagination\ResourceCursorFactory;
 use Diglin\Sylius\ApiClient\Routing\UriGenerator;
 use Diglin\Sylius\ApiClient\Security\Authentication;
 use Diglin\Sylius\ApiClient\Stream\MultipartStreamBuilderFactory;
+use Diglin\Sylius\ApiClient\Stream\PatchResourceListResponseFactory;
 use Diglin\Sylius\ApiClient\Stream\UpsertResourceListResponseFactory;
-use Http\Client\HttpClient as Client;
-use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
 {
-    private string $baseUri;
-    private ?Client $httpClient;
-    private ?RequestFactoryInterface $requestFactory;
-    private ?StreamFactoryInterface $streamFactory;
-    private ?FileSystemInterface $fileSystem;
+    private string $baseUri = '';
+    private ?ClientInterface $httpClient = null;
+    private ?RequestFactoryInterface $requestFactory = null;
+    private ?StreamFactoryInterface $streamFactory = null;
+    private ?FileSystemInterface $fileSystem = null;
     /** @var array<string, Api\ApiAwareInterface> */
     private array $apiRegistry = [];
     /** @var array<string, string> */
@@ -61,7 +62,7 @@ class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
     /**
      * Allows to directly set a client instead of using HttpClientDiscovery::find().
      */
-    public function setHttpClient(Client $httpClient): self
+    public function setHttpClient(ClientInterface $httpClient): self
     {
         $this->httpClient = $httpClient;
 
@@ -113,6 +114,10 @@ class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
 
     private function buildAuthenticatedClient(Authentication $authentication): SyliusAdminClientInterface
     {
+        if ($this->baseUri === '') {
+            throw new MissingBaseUriException('The base URI must be set. Please set the base URI using the setBaseUri method.');
+        }
+
         $uriGenerator = new UriGenerator($this->baseUri);
         $httpClient = new HttpClient($this->getHttpClient(), $this->getRequestFactory(), $this->getStreamFactory(), $this->defaultHeaders);
 
@@ -120,12 +125,14 @@ class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
         $authenticatedHttpClient = new AuthenticatedHttpClient($httpClient, $authenticationApi, $authentication);
         $multipartStreamBuilderFactory = new MultipartStreamBuilderFactory($this->getStreamFactory());
         $upsertListResponseFactory = new UpsertResourceListResponseFactory();
+        $patchListResponseFactory = new PatchResourceListResponseFactory();
 
         $resourceClient = new ResourceClient(
             $authenticatedHttpClient,
             $uriGenerator,
             $multipartStreamBuilderFactory,
-            $upsertListResponseFactory
+            $upsertListResponseFactory,
+            $patchListResponseFactory,
         );
 
         $pageFactory = new PageFactory($authenticatedHttpClient, $uriGenerator);
@@ -194,10 +201,10 @@ class SyliusAdminClientBuilder implements SyliusAdminClientBuilderInterface
         return $client;
     }
 
-    private function getHttpClient(): Client
+    private function getHttpClient(): ClientInterface
     {
         if (null === $this->httpClient) {
-            $this->httpClient = HttpClientDiscovery::find();
+            $this->httpClient = Psr18ClientDiscovery::find();
         }
 
         return $this->httpClient;

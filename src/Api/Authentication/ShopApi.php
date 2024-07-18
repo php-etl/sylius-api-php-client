@@ -23,14 +23,14 @@ use Diglin\Sylius\ApiClient\Routing\UriGeneratorInterface;
  */
 class ShopApi implements AuthenticationApiInterface
 {
-    public const TOKEN_URI = 'api/v2/shop/authentication-token';
+    public const TOKEN_URI = 'api/v2/shop/customers/token';
 
     public function __construct(
         private HttpClient $httpClient,
         private UriGeneratorInterface $uriGenerator
     ) {}
 
-    public function authenticateByPassword(string $username, string $password): array
+    public function authenticateByPassword(string $email, string $password): array
     {
         $headers = [
             'Content-Type' => 'application/json',
@@ -39,7 +39,7 @@ class ShopApi implements AuthenticationApiInterface
         $uri = $this->uriGenerator->generate(static::TOKEN_URI);
 
         $response = $this->httpClient->sendRequest('POST', $uri, $headers, json_encode([
-            'email' => $username,
+            'email' => $email,
             'password' => $password,
         ]));
 

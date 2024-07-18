@@ -59,13 +59,13 @@ final class ProductReviewApi implements ProductReviewApiInterface
         return $this->resourceClient->deleteResource('api/v2/admin/product-reviews/%d', [$code]);
     }
 
-    public function accept(string $code, array $data = []): int
+    public function accept(int $code, array $data = []): int
     {
         Assert::integer($code);
         return $this->resourceClient->patchResource('api/v2/admin/product-reviews/%d/accept', [$code], $data);
     }
 
-    public function reject(string $code, array $data = []): int
+    public function reject(int $code, array $data = []): int
     {
         Assert::integer($code);
         return $this->resourceClient->patchResource('api/v2/admin/product-reviews/%d/reject', [$code], $data);

@@ -32,11 +32,11 @@ final class PageFactory implements PageFactoryInterface
     {
         $data = $this->addFullUri($data);
 
-        $nextLink = $data['_links']['next']['href'] ?? null;
-        $previousLink = $data['_links']['previous']['href'] ?? null;
-        $firstLink = $data['_links']['first']['href'] ?? null;
-        $count = $data['total'] ?? null;
-        $items = $data['_embedded']['items'] ?? [];
+        $nextLink = $data['hydra:view']['hydra:next'] ?? null;
+        $previousLink = $data['hydra:view']['hydra:previous'] ?? null;
+        $firstLink = $data['hydra:view']['hydra:first'] ?? null;
+        $count = $data['hydra:totalItems'] ?? null;
+        $items = $data['hydra:member'] ?? [];
 
         return new Page(
             new PageFactory($this->httpClient, $this->uriGenerator),

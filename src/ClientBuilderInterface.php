@@ -2,7 +2,7 @@
 
 namespace Diglin\Sylius\ApiClient;
 
-use Http\Client\HttpClient as Client;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
@@ -13,7 +13,7 @@ interface ClientBuilderInterface
 
     public function setDefaultHeaders(array $headers): self;
 
-    public function setHttpClient(Client $httpClient): self;
+    public function setHttpClient(ClientInterface $httpClient): self;
 
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self;
 

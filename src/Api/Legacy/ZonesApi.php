@@ -43,7 +43,7 @@ class ZonesApi implements ZonesApiInterface
         return $this->resourceClient->getResource(static::ENDPOINT_URI, [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
         return $this->resourceClient->createResource(static::ENDPOINTS_URI, [$code], $data);
     }

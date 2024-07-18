@@ -22,12 +22,11 @@ final class ChannelApi implements ChannelApiInterface
     public function get($code): array
     {
         Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/channels/%d', [$code]);
+        return $this->resourceClient->getResource('api/v2/admin/channels/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/channels', [], $data);
     }
 
@@ -56,6 +55,18 @@ final class ChannelApi implements ChannelApiInterface
     public function delete($code): int
     {
         Assert::string($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/channels/%d', [$code]);
+        return $this->resourceClient->deleteResource('api/v2/admin/channels/%s', [$code]);
+    }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/channels/%s', [$code], $data);
+    }
+
+    public function shopBillingData(string $code): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/channels/%s/shop-billing-data', [$code]);
     }
 }

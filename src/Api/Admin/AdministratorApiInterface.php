@@ -10,4 +10,7 @@ use Diglin\Sylius\ApiClient\Api\Operation\UpsertableResourceInterface;
 
 interface AdministratorApiInterface extends GettableResourceInterface, CreatableResourceInterface, ListableResourceInterface, UpsertableResourceInterface, DeletableResourceInterface
 {
+    public function requestResetPassword(string $email): int;
+
+    public function resetPassword(string $token, array $data = []): int;
 }

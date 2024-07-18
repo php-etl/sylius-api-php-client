@@ -5,6 +5,6 @@ namespace Diglin\Sylius\ApiClient\Api\Admin;
 use Diglin\Sylius\ApiClient\Api\Operation\GettableResourceInterface;
 use Diglin\Sylius\ApiClient\Api\Operation\ListableResourceInterface;
 
-interface ProductOptionValueApiInterface extends GettableResourceInterface, ListableResourceInterface
+interface ProductOptionValueApiInterface extends GettableResourceInterface
 {
 }

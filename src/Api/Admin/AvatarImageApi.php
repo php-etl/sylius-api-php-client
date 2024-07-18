@@ -17,10 +17,11 @@ final class AvatarImageApi implements AvatarImageApiInterface
         return $this->resourceClient->getResource('api/v2/admin/avatar-images/%d', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::integer($code);
-        return $this->resourceClient->createResource('api/v2/admin/avatar-images', [], $data);
+        $response = $this->resourceClient->createMultipartResource('api/v2/admin/avatar-images', [], $data);
+
+        return $response->getStatusCode();
     }
 
     public function delete($code): int

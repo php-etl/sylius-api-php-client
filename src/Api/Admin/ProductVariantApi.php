@@ -25,9 +25,8 @@ final class ProductVariantApi implements ProductVariantApiInterface
         return $this->resourceClient->getResource('api/v2/admin/product-variants/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/product-variants', [], $data);
     }
 
@@ -57,5 +56,11 @@ final class ProductVariantApi implements ProductVariantApiInterface
     {
         Assert::string($code);
         return $this->resourceClient->upsertResource('api/v2/admin/product-variants/%s', [$code]);
+    }
+
+    public function delete($code): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-variants/%s', [$code]);
     }
 }

@@ -55,9 +55,8 @@ final class ZoneApi implements ZoneApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/zones', [], $data);
     }
 
@@ -65,5 +64,19 @@ final class ZoneApi implements ZoneApiInterface
     {
         Assert::string($code);
         return $this->resourceClient->deleteResource('api/v2/admin/zones/%s', [$code]);
+    }
+
+    public function allMembers(string $code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): ResourceCursorInterface
+    {
+        $data = $this->listMembersPerPage($code, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);
+    }
+
+    public function listMembersPerPage(string $code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
+    {
+        $data = $this->resourceClient->getResources('api/v2/admin/zones/%s/members', [$code], $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->pageFactory->createPage($data);
     }
 }

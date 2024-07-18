@@ -25,5 +25,5 @@ interface CreatableResourceInterface
      *
      * @return int status code 201 indicating that the resource has been well created
      */
-    public function create($code, array $data = []): int;
+    public function create(array $data = []): int;
 }

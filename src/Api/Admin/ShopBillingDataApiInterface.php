@@ -3,8 +3,7 @@
 namespace Diglin\Sylius\ApiClient\Api\Admin;
 
 use Diglin\Sylius\ApiClient\Api\Operation\GettableResourceInterface;
-use Diglin\Sylius\ApiClient\Api\Operation\ListableDoubleResourceInterface;
 
-interface ShopBillingDataApiInterface extends GettableResourceInterface, ListableDoubleResourceInterface
+interface ShopBillingDataApiInterface extends GettableResourceInterface
 {
 }

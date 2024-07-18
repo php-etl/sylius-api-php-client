@@ -21,13 +21,12 @@ final class PromotionApi implements PromotionApiInterface
 
     public function get($code): array
     {
-        Assert::integer($code);
-        return $this->resourceClient->getResource('api/v2/admin/promotions/%d', [$code]);
+        Assert::string($code);
+        return $this->resourceClient->getResource('api/v2/admin/promotions/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::integer($code);
         return $this->resourceClient->createResource('api/v2/admin/promotions', [], $data);
     }
 
@@ -55,7 +54,25 @@ final class PromotionApi implements PromotionApiInterface
 
     public function delete($code): int
     {
-        Assert::integer($code);
-        return $this->resourceClient->deleteResource('api/v2/admin/promotions/%d', [$code]);
+        Assert::string($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/promotions/%s', [$code]);
+    }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/promotions/%s', [$code], $data);
+    }
+
+    public function archive(string $code): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->patchResource('api/v2/admin/promotions/%s/archive', [$code]);
+    }
+
+    public function restore(string $code): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->patchResource('api/v2/admin/promotions/%s/restore', [$code]);
     }
 }

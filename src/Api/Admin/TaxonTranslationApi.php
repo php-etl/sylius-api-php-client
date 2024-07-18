@@ -42,6 +42,8 @@ final class TaxonTranslationApi implements TaxonTranslationApiInterface
         FilterBuilderInterface $filterBuilder = null,
         SortBuilderInterface $sortBuilder = null
     ): ResourceCursorInterface {
-        // TODO: Implement all() method.
+        $data = $this->listPerPage($pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);
     }
 }

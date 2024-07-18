@@ -25,9 +25,8 @@ final class ProductAssociationTypeApi implements ProductAssociationTypeApiInterf
         return $this->resourceClient->getResource('api/v2/admin/product-association-types/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/product-association-types', [], $data);
     }
 
@@ -55,7 +54,7 @@ final class ProductAssociationTypeApi implements ProductAssociationTypeApiInterf
 
     public function upsert($code, array $data = []): int
     {
-        Assert::integer($code);
+        Assert::string($code);
         return $this->resourceClient->upsertResource('api/v2/admin/product-association-types/%d', [$code], $data);
     }
 

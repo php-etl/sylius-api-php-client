@@ -55,9 +55,8 @@ final class ShippingMethodApi implements ShippingMethodApiInterface
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/shipping-methods', [], $data);
     }
 
@@ -70,12 +69,12 @@ final class ShippingMethodApi implements ShippingMethodApiInterface
     public function archive(string $code, array $data = [])
     {
         Assert::string($code);
-        return $this->resourceClient->createResource('api/v2/admin/shipping-methods/%s/archive', [$code], $data);
+        return $this->resourceClient->patchResource('api/v2/admin/shipping-methods/%s/archive', [$code], $data);
     }
 
     public function restore(string $code, array $data = [])
     {
         Assert::string($code);
-        return $this->resourceClient->createResource('api/v2/admin/shipping-methods/%s/restore', [$code], $data);
+        return $this->resourceClient->patchResource('api/v2/admin/shipping-methods/%s/restore', [$code], $data);
     }
 }

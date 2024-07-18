@@ -5,7 +5,6 @@ namespace Diglin\Sylius\ApiClient\Client;
 use Diglin\Sylius\ApiClient\Api;
 use Diglin\Sylius\ApiClient\Exception\UnauthorizedHttpException;
 use Diglin\Sylius\ApiClient\Security\Authentication;
-use Psr\Log\LoggerInterface;
 
 /**
  * Http client to send an authenticated request.
@@ -22,7 +21,7 @@ use Psr\Log\LoggerInterface;
 class AuthenticatedHttpClient implements HttpClientInterface
 {
     public function __construct(
-        private HttpClient $basicHttpClient,
+        private HttpClientInterface $basicHttpClient,
         private Api\Authentication\AuthenticationApiInterface $authenticationApi,
         private Authentication $authentication,
     ) {}

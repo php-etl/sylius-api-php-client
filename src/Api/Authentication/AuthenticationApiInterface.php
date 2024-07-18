@@ -25,5 +25,5 @@ interface AuthenticationApiInterface
      *
      * @return array{token: string}
      */
-    public function authenticateByPassword(string $username, string $password): array;
+    public function authenticateByPassword(string $email, string $password): array;
 }

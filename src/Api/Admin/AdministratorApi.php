@@ -25,9 +25,8 @@ final class AdministratorApi implements AdministratorApiInterface
         return $this->resourceClient->getResource('api/v2/admin/administrators/%d', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::integer($code);
         return $this->resourceClient->createResource('api/v2/admin/administrators', [], $data);
     }
 
@@ -63,5 +62,15 @@ final class AdministratorApi implements AdministratorApiInterface
     {
         Assert::integer($code);
         return $this->resourceClient->deleteResource('api/v2/admin/administrators/%d', [$code]);
+    }
+
+    public function requestResetPassword(string $email): int
+    {
+        return $this->resourceClient->createResource('api/v2/admin/administrators/reset-password', [], ['email' => $email]);
+    }
+
+    public function resetPassword(string $token, array $data = []): int
+    {
+        return $this->resourceClient->patchResource('api/v2/admin/administrators/reset-password/%s', [$token], $data);
     }
 }

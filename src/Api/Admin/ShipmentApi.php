@@ -21,8 +21,8 @@ final class ShipmentApi implements ShipmentApiInterface
 
     public function get($code): array
     {
-        Assert::string($code);
-        return $this->resourceClient->getResource('api/v2/admin/shipments/%s', [$code]);
+        Assert::integer($code);
+        return $this->resourceClient->getResource('api/v2/admin/shipments/%d', [$code]);
     }
 
     public function listPerPage(
@@ -49,7 +49,25 @@ final class ShipmentApi implements ShipmentApiInterface
 
     public function ship(string $code, array $data = []): int
     {
-        Assert::string($code);
-        return $this->resourceClient->patchResource('api/v2/admin/shipments/%s/ship', [$code], $data);
+        Assert::integer($code);
+        return $this->resourceClient->patchResource('api/v2/admin/shipments/%d/ship', [$code], $data);
+    }
+
+    public function allAdjustments($code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): ResourceCursorInterface
+    {
+        $data = $this->listAdjustmentsPerPage($code, $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->cursorFactory->createCursor($pageSize, $data);    }
+
+    public function listAdjustmentsPerPage($code, int $pageSize = 10, array $queryParameters = [], FilterBuilderInterface $filterBuilder = null, SortBuilderInterface $sortBuilder = null): PageInterface
+    {
+        $data = $this->resourceClient->getResources('api/v2/admin/shipments/%d/adjustments', [$code], $pageSize, $queryParameters, $filterBuilder, $sortBuilder);
+
+        return $this->pageFactory->createPage($data);
+    }
+
+    public function resendConfirmationEmail(int $code, array $data = []): int
+    {
+        return $this->resourceClient->createResource('api/v2/admin/shipments/%d/resend-confirmation-email', [$code], $data);
     }
 }

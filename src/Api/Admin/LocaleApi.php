@@ -25,9 +25,8 @@ final class LocaleApi implements LocaleApiInterface
         return $this->resourceClient->getResource('api/v2/admin/exchange-rates/%s', [$code]);
     }
 
-    public function create($code, array $data = []): int
+    public function create(array $data = []): int
     {
-        Assert::string($code);
         return $this->resourceClient->createResource('api/v2/admin/exchange-rates', [], $data);
     }
 
@@ -51,5 +50,11 @@ final class LocaleApi implements LocaleApiInterface
         $data = $this->listPerPage($pageSize, $queryParameters, $filterBuilder, $sortBuilder);
 
         return $this->cursorFactory->createCursor($pageSize, $data);
+    }
+
+    public function delete($code): int
+    {
+        Assert::string($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/exchange-rates', [$code]);
     }
 }

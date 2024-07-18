@@ -46,4 +46,19 @@ final class ProductTaxonApi implements ProductTaxonApiInterface
 
         return $this->cursorFactory->createCursor($pageSize, $data);
     }
+
+    public function create(array $data = []): int
+    {
+        return $this->resourceClient->createResource('api/v2/admin/product-taxons', [], $data);    }
+
+    public function delete($code): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->deleteResource('api/v2/admin/product-taxons/%d', [$code]);
+    }
+
+    public function upsert($code, array $data = []): int
+    {
+        Assert::integer($code);
+        return $this->resourceClient->upsertResource('api/v2/admin/product-taxons/%d', [$code], $data);    }
 }
